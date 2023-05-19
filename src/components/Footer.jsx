@@ -6,7 +6,7 @@ export default function Footer({ answeredQuestions, totalQuestions }) {
         : `${totalQuestions}/${totalQuestions} CONCLUÍDOS`;
 
     return (
-        <ContainerFooter>
+        <ContainerFooter data-test="footer" >
             <h2>{completedText}</h2>
         </ContainerFooter>
     )

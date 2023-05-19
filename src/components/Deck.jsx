@@ -22,8 +22,7 @@ export default function Deck(){
             </ContainerLogo>
 
             {cards.map((item, index) => (
-                <Flashcards 
-                    data-test="flashcard"
+                <Flashcards                    
                     key={item.question}
                     card={item}
                     index={index}
@@ -32,7 +31,6 @@ export default function Deck(){
             ))}
             
             <Footer 
-                data-test="footer" 
                 answeredQuestions={answeredQuestions} 
                 totalQuestions={totalQuestions}
             />
