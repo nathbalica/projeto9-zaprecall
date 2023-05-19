@@ -22,17 +22,16 @@ export default function Flashcards({ card, index, onQuestionAnswered }) {
         }
     };
 
-    console.log(status)
 
     return (
         <>
             {!start ? (
-                <OpenQuestion status={status}>
+                <OpenQuestion data-test="flashcard" status={status}>
                     <h2 data-test="flashcard-text">Pergunta {index + 1}</h2>
                     <IconsFlashcards status={status} start={startQuestion} />
                 </OpenQuestion>
             ) : (
-                <CollapsedQuestion status={status}>
+                <CollapsedQuestion data-test="flashcard" status={status}>
                     {!turn ? (
                         <>
                             <h2 data-test="flashcard-text">{card.question}</h2>
