@@ -4,9 +4,16 @@ import logo from "../assets/logo.png"
 import Flashcards from "./Flashcards"
 import cards from "../constants-flashcards/cards"
 import Footer from "./Footer";
+import { useState } from "react";
 
 
 export default function Deck(){
+    const totalQuestions = cards.length;
+    const [answeredQuestions, setAnsweredQuestions] = useState(0);
+    const handleQuestionsAnswered = () => {
+        setAnsweredQuestions(prevCount => prevCount+1)
+    }
+
     return (
         <ContainerMain>
             <ContainerLogo>
@@ -14,9 +21,21 @@ export default function Deck(){
                 <h1>ZapRecall</h1>
             </ContainerLogo>
 
-            {cards.map((item, index) => (<Flashcards card={item} index={index}/>))}
+            {cards.map((item, index) => (
+                <Flashcards 
+                    data-test="flashcard"
+                    key={item.question}
+                    card={item}
+                    index={index}
+                    onQuestionAnswered={handleQuestionsAnswered}
+                />
+            ))}
             
-            <Footer />
+            <Footer 
+                data-test="footer" 
+                answeredQuestions={answeredQuestions} 
+                totalQuestions={totalQuestions}
+            />
         </ContainerMain>
     )
 }
@@ -37,7 +56,6 @@ const ContainerMain = styled.div `
 const ContainerLogo = styled.div `
     display: flex;
     align-items: center;
-    background-color: gray;
     margin: 42px 0 32px 0;
     img{
         width: 52px;

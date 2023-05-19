@@ -1,37 +1,55 @@
 import styled from "styled-components";
-import seta_play from "../assets/seta_play.png"
 import seta_virar from "../assets/seta_virar.png"
 import { useState } from "react";
-import { GREEN, ORANGE, RED } from "../constants-flashcards/colors";
+import { GREEN, ORANGE, RED, GRAY } from "../constants-flashcards/colors";
+import IconsFlashcards from "./IconsFlashcards";
 
-export default function Flashcards({ card, index }) {
+export default function Flashcards({ card, index, onQuestionAnswered }) {
     const [start, setStart] = useState(false);
     const [turn, setTurn] = useState(false);
+    const [status, setStatus] = useState('not-answer');
+    const [hasQuestion, setHasQuestion] = useState(false)
+
+    const questionsAnswered = (statusAnswer) => {
+        setStart(false);
+        setStatus(statusAnswer);
+        onQuestionAnswered()
+    }
+
+    const startQuestion = () => {
+        if (!start) {
+            setStart(true);
+        }
+    };
+
+    console.log(status)
 
     return (
         <>
             {!start ? (
-                <OpenQuestion>
-                    <h2>Pergunta {index + 1}</h2>
-                    <img src={seta_play} onClick={() => setStart(true)} alt="seta de play" />
+                <OpenQuestion status={status}>
+                    <h2 data-test="flashcard-text">Pergunta {index + 1}</h2>
+                    <IconsFlashcards status={status} start={startQuestion} />
                 </OpenQuestion>
             ) : (
-                <CollapsedQuestion>
+                <CollapsedQuestion status={status}>
                     {!turn ? (
                         <>
-                            <h2>{card.question}</h2>
+                            <h2 data-test="flashcard-text">{card.question}</h2>
                             <img
+                                data-test="turn-btn"
                                 src={seta_virar}
                                 onClick={() => setTurn(true)}
                                 alt="seta de voltar"
                             />
                         </>) : (
                         <>
-                            <h2>{card.answer}</h2>
+                            
+                            <h2 data-test="flashcard-text">{card.answer}</h2>
                             <ContainerButtons>
-                                <AnswerButtons color={GREEN}>Não lembrei</AnswerButtons>
-                                <AnswerButtons color={ORANGE}>Quase não lembrei</AnswerButtons>
-                                <AnswerButtons color={RED}>Zap</AnswerButtons>
+                                <AnswerButtons data-test="no-btn" color={RED} onClick={() => questionsAnswered('incorrect')}>Não lembrei</AnswerButtons>
+                                <AnswerButtons data-test="partial-btn" color={ORANGE} onClick={() => questionsAnswered('effort')}>Quase não lembrei</AnswerButtons>
+                                <AnswerButtons data-test="zap-btn" color={GREEN} onClick={() => questionsAnswered('imediate')}>Zap</AnswerButtons>
                             </ContainerButtons>
                         </>
                     )}
@@ -45,36 +63,57 @@ export default function Flashcards({ card, index }) {
 const OpenQuestion = styled.div`
     width: 300px;
     height: 35px;
+    margin: 10px;
+    padding: 15px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
-    padding: 15px;
+    
     background-color: #FFFFFF;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
-    h2{
-        font-family: 'Recursive';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 19px;
-        color: #333333;
-    }
-
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration: ${({ status }) => status === 'not-answer' ? 'none' : 'line-through'};
+    color: ${({ status }) => {
+        if (status === 'incorrect') {
+            return RED;
+        } else if (status === 'effort') {
+            return ORANGE;
+        } else if (status === 'imediate') {
+            return GREEN;
+        } else {
+            return GRAY;
+        }
+    }};
+     
 `
-const CollapsedQuestion = styled(OpenQuestion)`
-    min-height: 100px;
-    flex-direction: column;
+const CollapsedQuestion = styled.div`
     position: relative;
-    align-items: baseline;
+    width: 300px;
+    min-height: 100px;
+    margin: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+   
+    background: #FFFFD5;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
 
-    h2{
-        font-weight: 200;
-        font-size: 18px;
-        line-height: 22px;
-        flex-direction: column;
-    }
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #333333;
+
     img{
         position: absolute;
         width: 30px;
@@ -83,17 +122,18 @@ const CollapsedQuestion = styled(OpenQuestion)`
         right: 10px;
     }
 `
+
 const ContainerButtons = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
-
 `
 const AnswerButtons = styled.button`
-    width: 85px;
+    width: 90px;
     /* height: 37px; */
     /* padding: 5px; */
+
 
     font-family: 'Recursive';
     font-style: normal;
@@ -111,5 +151,6 @@ const AnswerButtons = styled.button`
     border: 1px solid ${props => props.color};
 
     border-radius: 5px;
+    padding:  5px;
 `
 

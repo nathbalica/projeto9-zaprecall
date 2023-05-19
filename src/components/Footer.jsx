@@ -1,14 +1,18 @@
 import styled from "styled-components"
 
-export default function Footer(){
+export default function Footer({ answeredQuestions, totalQuestions }) {
+    const completedText = answeredQuestions <= totalQuestions
+        ? `${answeredQuestions}/${totalQuestions} CONCLUÍDOS`
+        : `${totalQuestions}/${totalQuestions} CONCLUÍDOS`;
+
     return (
         <ContainerFooter>
-            <h2>0/4 CONCLUÍDOS</h2>
+            <h2>{completedText}</h2>
         </ContainerFooter>
     )
 }
 
-const ContainerFooter = styled.div `
+const ContainerFooter = styled.div`
     bottom: 0;
     background-color: #FFFFFF;
     width: 100%;
