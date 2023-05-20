@@ -4,16 +4,16 @@ import { useState } from "react";
 import { GREEN, ORANGE, RED, GRAY } from "../constants-flashcards/colors";
 import IconsFlashcards from "./IconsFlashcards";
 
-export default function Flashcards({ card, index, onQuestionAnswered }) {
+export default function Flashcards({ card, index, onQuestionAnswered, anwersRow }) {
     const [start, setStart] = useState(false);
     const [turn, setTurn] = useState(false);
     const [status, setStatus] = useState('not-answer');
-    const [hasQuestion, setHasQuestion] = useState(false)
 
     const questionsAnswered = (statusAnswer) => {
         setStart(false);
         setStatus(statusAnswer);
         onQuestionAnswered()
+        anwersRow(statusAnswer)
     }
 
     const startQuestion = () => {

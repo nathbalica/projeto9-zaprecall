@@ -7,38 +7,50 @@ import Footer from "./Footer";
 import { useState } from "react";
 
 
-export default function Deck(){
+
+export default function Deck() {
     const totalQuestions = cards.length;
     const [answeredQuestions, setAnsweredQuestions] = useState(0);
-    const handleQuestionsAnswered = () => {
-        setAnsweredQuestions(prevCount => prevCount+1)
-    }
+    const [answeredOrder, setAnsweredOrder] = useState([]);
 
+    const handleQuestionsAnswered = () => {
+        setAnsweredQuestions(prevCount => prevCount + 1)
+    }
+    const anwersRow = (status) => {
+        setAnsweredOrder([...answeredOrder, status])
+    }
+    console.log(answeredOrder)
     return (
         <ContainerMain>
             <ContainerLogo>
-                <img src={logo} alt="logo zaprecall"/>
+                <img src={logo} alt="logo zaprecall" />
                 <h1>ZapRecall</h1>
             </ContainerLogo>
 
             {cards.map((item, index) => (
-                <Flashcards                    
+                <Flashcards
                     key={item.question}
                     card={item}
                     index={index}
                     onQuestionAnswered={handleQuestionsAnswered}
+                    anwersRow={anwersRow}
                 />
             ))}
-            
-            <Footer 
-                answeredQuestions={answeredQuestions} 
+
+            <Footer
+                answeredQuestions={answeredQuestions}
                 totalQuestions={totalQuestions}
+                answeredOrder={answeredOrder}
             />
+                
+
+
+
         </ContainerMain>
     )
 }
 
-const ContainerMain = styled.div `
+const ContainerMain = styled.div`
     width: 100%;
     min-height: 100%;
     margin: 0;
@@ -51,7 +63,7 @@ const ContainerMain = styled.div `
     align-items: center;
 
 `
-const ContainerLogo = styled.div `
+const ContainerLogo = styled.div`
     display: flex;
     align-items: center;
     margin: 42px 0 32px 0;
@@ -70,3 +82,4 @@ const ContainerLogo = styled.div `
         color: #FFFFFF;
     }
 `
+
