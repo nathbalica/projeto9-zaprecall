@@ -1,4 +1,4 @@
-# 💻 projeto4-parrots
+# 🗓️ ZapRecall
 
 ## Sobre
 App de flashcards chamado Zap Recall! Contém cartões com uma pergunta/afirmação na sua frente e uma resposta atrás. A ideia é ler a pergunta ou afirmação e tentar lembrar da reposta. Ao se deparar com a mesma, dependendo do esforço necessário para responder ou não o flashcard, você fica consciente de quais conteúdos estão frescos na memória e quais não estão, então, pode praticar com frequência os conteúdos que não estão.
@@ -48,22 +48,26 @@ Para executar o projeto localmente, siga as etapas abaixo:
 
 - Faça o clone do repositório do GitHub:
 
-`git clone https://github.com/seu-usuario/nome-do-repositorio.git
-`
+```
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+```
 
 - Navegue até o diretório do projeto:
 
-`cd nome-do-repositorio
-`
+```
+cd nome-do-repositorio
+```
 
 - Instale as dependências do projeto:
 
-`npm install
-`
+```
+npm install
+```
 
 - Inicie o servidor de desenvolvimento:
 
-`npm npm run dev
-`
+```
+npm npm run dev
+```
 
 O aplicativo estará disponível no navegador no endereço ` http://localhost:5173/`
