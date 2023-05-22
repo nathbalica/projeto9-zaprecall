@@ -45,7 +45,7 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
                         <>
                             
                             <h2 data-test="flashcard-text">{card.answer}</h2>
-                            <ContainerButtons>
+                            <ContainerButtons data-test="flashcard">
                                 <AnswerButtons data-test="no-btn" color={RED} onClick={() => questionsAnswered('incorrect')}>Não lembrei</AnswerButtons>
                                 <AnswerButtons data-test="partial-btn" color={ORANGE} onClick={() => questionsAnswered('effort')}>Quase não lembrei</AnswerButtons>
                                 <AnswerButtons data-test="zap-btn" color={GREEN} onClick={() => questionsAnswered('imediate')}>Zap</AnswerButtons>
