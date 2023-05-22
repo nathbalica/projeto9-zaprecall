@@ -26,12 +26,12 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
     return (
         <Container data-test="flashcard">
             {!start ? (
-                <OpenQuestion status={status}>
+                <CollapsedQuestion data-test="flashcard" status={status}>
                     <h2 data-test="flashcard-text">Pergunta {index + 1}</h2>
                     <IconsFlashcards status={status} start={startQuestion} />
-                </OpenQuestion>
+                </CollapsedQuestion>
             ) : (
-                <CollapsedQuestion status={status}>
+                <OpenQuestion data-test="flashcard" status={status}>
                     {!turn ? (
                         <>
                             <h2 data-test="flashcard-text">{card.question}</h2>
@@ -52,7 +52,7 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
                             </ContainerButtons>
                         </>
                     )}
-                </CollapsedQuestion>
+                </OpenQuestion>
             )}
 
         </Container>
@@ -64,7 +64,7 @@ const Container = styled.div`
   /* Estilos do Container, se necessário */
 `;
 
-const OpenQuestion = styled.div`
+const CollapsedQuestion = styled.div`
     width: 300px;
     height: 35px;
     margin: 10px;
@@ -96,7 +96,7 @@ const OpenQuestion = styled.div`
     }};
      
 `
-const CollapsedQuestion = styled.div`
+const OpenQuestion = styled.div`
     position: relative;
     width: 300px;
     min-height: 100px;
