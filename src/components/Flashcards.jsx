@@ -24,7 +24,7 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
 
 
     return (
-        <Container>
+        <>
             {!start ? (
                 <CollapsedQuestion data-test="flashcard" status={status}>
                     <h2 data-test="flashcard-text">Pergunta {index + 1}</h2>
@@ -55,7 +55,7 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
                 </OpenQuestion>
             )}
 
-        </Container>
+        </>
     )
 }
 
