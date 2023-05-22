@@ -32,8 +32,8 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
                 </CollapsedQuestion>
             ) : (
                 <OpenQuestion data-test="flashcard" status={status}>
-                    {!turn ? (
-                        <>
+                    {(!turn ? (
+                        <div>
                             <h2 data-test="flashcard-text">{card.question}</h2>
                             <img
                                 data-test="turn-btn"
@@ -41,17 +41,17 @@ export default function Flashcards({ card, index, onQuestionAnswered, anwersRow 
                                 onClick={() => setTurn(true)}
                                 alt="seta de voltar"
                             />
-                        </>) : (
-                        <>
-                            
+                        </div>
+                    ) : (
+                        <div>
                             <h2 data-test="flashcard-text">{card.answer}</h2>
-                            <ContainerButtons data-test="flashcard">
-                                <AnswerButtons data-test="no-btn" color={RED} onClick={() => questionsAnswered('incorrect')}>Não lembrei</AnswerButtons>
-                                <AnswerButtons data-test="partial-btn" color={ORANGE} onClick={() => questionsAnswered('effort')}>Quase não lembrei</AnswerButtons>
-                                <AnswerButtons data-test="zap-btn" color={GREEN} onClick={() => questionsAnswered('imediate')}>Zap</AnswerButtons>
+                            <ContainerButtons>
+                                <AnswerButtons data-test="no-btn" background={RED} onClick={() => questionsAnswered('incorrect')}>Não lembrei</AnswerButtons>
+                                <AnswerButtons data-test="partial-btn" background={ORANGE} onClick={() => questionsAnswered('effort')}>Quase não lembrei</AnswerButtons>
+                                <AnswerButtons data-test="zap-btn" background={GREEN} onClick={() => questionsAnswered('imediate')}>Zap</AnswerButtons>
                             </ContainerButtons>
-                        </>
-                    )}
+                        </div>
+                    ))}
                 </OpenQuestion>
             )}
 
@@ -150,9 +150,9 @@ const AnswerButtons = styled.button`
     justify-content: center;
     text-align: center;
 
-    background-color: ${props => props.color};
+    background-color: ${props => props.background};
     color: #FFFFFF;
-    border: 1px solid ${props => props.color};
+    border: 1px solid ${props => props.background};
 
     border-radius: 5px;
     padding:  5px;
